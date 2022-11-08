@@ -34,6 +34,7 @@ func Run(configFile string) error {
 		}
 	})
 	if err != nil {
+		logx.Errorf("cronJob.AddFunc error:",err)
 		panic(err)
 	}
 

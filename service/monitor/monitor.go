@@ -33,6 +33,7 @@ func Run(configFile string) error {
 			logx.Errorf("monitor blocks error, %v", err)
 		}
 	}); err != nil {
+		logx.Errorf("monitor cronJob.AddFunc MonitorGenericBlocks failed:%v",err)
 		panic(err)
 	}
 
@@ -43,6 +44,7 @@ func Run(configFile string) error {
 			logx.Errorf("monitor priority requests error, %v", err)
 		}
 	}); err != nil {
+		logx.Errorf("monitor cronJob.AddFunc MonitorPriorityRequests failed %v",err)
 		panic(err)
 	}
 
@@ -54,6 +56,7 @@ func Run(configFile string) error {
 		}
 
 	}); err != nil {
+		logx.Errorf("monitor cronJob.AddFunc MonitorGovernanceBlocks failed %v",err)
 		panic(err)
 	}
 
@@ -64,6 +67,7 @@ func Run(configFile string) error {
 			logx.Errorf("clean history blocks error, %v", err)
 		}
 	}); err != nil {
+		logx.Errorf("monitor cronJob.AddFunc CleanHistoryBlocks failed %v",err)
 		panic(err)
 	}
 

@@ -129,6 +129,7 @@ func NewCommitter(config *Config) (*Committer, error) {
 func (c *Committer) Run() {
 	curBlock, err := c.restoreExecutedTxs()
 	if err != nil {
+		logx.Errorf("restore executed tx failed:%v",err)
 		panic("restore executed tx failed: " + err.Error())
 	}
 
@@ -145,6 +146,7 @@ func (c *Committer) Run() {
 		if curBlock.BlockStatus > block.StatusProposing {
 			curBlock, err = c.bc.InitNewBlock()
 			if err != nil {
+				logx.Errorf("propose new block failed: %v",err)
 				panic("propose new block failed: " + err.Error())
 			}
 		}
@@ -206,6 +208,7 @@ func (c *Committer) Run() {
 			if len(c.bc.Statedb.Txs) == 1 {
 				err = c.createNewBlock(curBlock, poolTx)
 				if err != nil {
+					logx.Errorf("create new block failed:%v",err)
 					panic("create new block failed" + err.Error())
 				}
 			} else {
@@ -216,6 +219,7 @@ func (c *Committer) Run() {
 
 		err = c.bc.StateDB().SyncStateCacheToRedis()
 		if err != nil {
+			logx.Errorf("sync redis cache failed:%v",err)
 			panic("sync redis cache failed: " + err.Error())
 		}
 
@@ -227,6 +231,7 @@ func (c *Committer) Run() {
 			return c.bc.TxPoolModel.DeleteTxsInTransact(dbTx, pendingDeletePoolTxs)
 		})
 		if err != nil {
+			logx.Errorf("update tx pool failed: %v",err)
 			panic("update tx pool failed: " + err.Error())
 		}
 

@@ -33,6 +33,7 @@ func Run(configFile string) error {
 		}
 	})
 	if err != nil {
+		logx.Errorf("prover cronJob.AddFunc ProveBlock failed:%v",err)
 		panic(err)
 	}
 	cronJob.Start()

@@ -68,6 +68,7 @@ func NewProver(c config.Config) *Prover {
 	}
 
 	if !IsBlockSizesSorted(c.BlockConfig.OptionalBlockSizes) {
+		logx.Error("invalid OptionalBlockSizes")
 		panic("invalid OptionalBlockSizes")
 	}
 
